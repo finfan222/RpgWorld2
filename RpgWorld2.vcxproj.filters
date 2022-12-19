@@ -33,14 +33,14 @@
     <ClCompile Include="imgui\imgui-SFML.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="GameSys.cpp">
+    <ClCompile Include="GameSystem.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="UIElement.cpp">
+    <ClCompile Include="GameUIElement.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
-    <ClCompile Include="UIWindow.cpp">
+    <ClCompile Include="GameWindow.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -75,16 +75,16 @@
     <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="GameSys.h">
+    <ClInclude Include="GameSystem.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="UIElement.h">
+    <ClInclude Include="GameUIElement.hpp">
       <Filter>src\ui</Filter>
     </ClInclude>
-    <ClInclude Include="UIWindow.h">
+    <ClInclude Include="GameWindow.hpp">
       <Filter>src\ui</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="GameObject.hpp">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

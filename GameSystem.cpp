@@ -1,4 +1,4 @@
-#include "GameSys.h"
+#include "GameSystem.hpp"
 
 void logging::print(LogLevel level, gt::UINT cnt, ...) {
 	const source_location loc = source_location::current();
