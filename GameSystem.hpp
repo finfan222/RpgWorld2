@@ -2,7 +2,9 @@
 #define GAME_SYS_HPP
 
 // need for boost logging
-#define  _WIN32_WINNT   0x0601
+#ifdef	_WIN32
+#define _WIN32_WINNT   0x0601
+#endif
 
 #include <SDKDDKVer.h>
 
