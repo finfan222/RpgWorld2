@@ -23,9 +23,9 @@
 
 * ```virtual функции``` всегда пишуется **snake_case**
 * ```base class функции``` всегда пишутся **camelCase**
-* ```static/constexpr``` пишутся **UPPER_CASE**
+* ```static/constexpr/const``` пишутся **UPPER_CASE**
 * ```private class functions``` пишутся **\__camelCase**
-* ```protected``` исключён от использования, в проекте применяется либо private либо public
+* ```protected``` исключён от использования, в проекте применяется либо **private** либо **public**
 * ```constructor/destructor``` всегда **явно** инициализированы
 * ```types``` пишутся с заглавной (в проекте используются свои типы, [см. GameSyste.hpp](#gamesystem))
 * ```unclassed functions in GameSystem.hpp``` всегда пишутся **PascalCase**
