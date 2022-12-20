@@ -5,6 +5,22 @@
 
 <a name="classfunctionsandother"></a>
 #### Class functions & other
+
+»спользуемые стили:
+1. **camelCase** - должен начинатьс€ со строчной буквы, а перва€ буква каждого последующего слова должна 
+быть заглавной. ¬се слова при этом пишутс€ слитно между собой. ```ѕример camelCase дл€ имени переменной camel case var Ц camelCaseVar.```
+2. **snake_case** - чтобы писать в стиле snake_case, нужно просто заменить пробелы знаками подчеркивани€. 
+¬се слова при этом пишутс€ строчными буквами. ћожно использовать snake_case, смешива€ его с camelCase 
+и PascalCase. ```ѕример snake_case дл€ имени переменной snake case var Ц snake_case_var.```
+3. **kebab-case** - похож на snake_case, только в нем пробелы замен€ютс€ на дефисы. —лова также пишутс€ 
+строчными буквами. ќп€ть же, его можно смешивать с camelCase и PascalCase, но в этом нет смысла. ```ѕример
+ kebab-case дл€ переменной kebab case var Ц kebab-case-var.```
+4. **PascalCase** - каждое слово начинаетс€ с заглавной буквы (в отличие от camelCase, где первое слово начинаетс€ 
+со строчной). ```ѕример PascalCase дл€ переменной pascal case var Ц PascalCaseVar.```
+
+<a name="rules"></a>
+##### ѕравила написани€
+
 * ```virtual функции``` всегда пишуетс€ **snake_case**
 * ```base class функции``` всегда пишутс€ **camelCase**
 * ```static/constexpr``` пишутс€ **UPPER_CASE**
@@ -12,7 +28,7 @@
 * ```protected``` исключЄн от использовани€, в проекте примен€етс€ либо private либо public
 * ```constructor/destructor``` всегда **€вно** инициализированы
 * ```types``` пишутс€ с заглавной (в проекте используютс€ свои типы, [см. GameSyste.hpp](#gamesystem))
-
+* ```unclassed functions in GameSystem.hpp``` всегда пишутс€ **PascalCase**
 <a name="gamesystem"></a>
 #### "GameSystem.hpp"
 
