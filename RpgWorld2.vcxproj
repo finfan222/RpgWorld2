@@ -171,6 +171,8 @@
     <ClInclude Include="GameWindow.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
     <None Include="dll\openal32.dll" />
     <None Include="dll\sfml-audio-2.dll" />
     <None Include="dll\sfml-audio-d-2.dll" />
@@ -183,6 +185,7 @@
     <None Include="dll\sfml-window-2.dll" />
     <None Include="dll\sfml-window-d-2.dll" />
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

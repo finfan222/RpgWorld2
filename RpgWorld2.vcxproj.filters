@@ -123,5 +123,8 @@
       <Filter>dll</Filter>
     </None>
     <None Include="packages.config" />
+    <None Include="README.md" />
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
   </ItemGroup>
 </Project>
