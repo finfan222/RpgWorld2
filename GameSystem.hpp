@@ -75,8 +75,8 @@ namespace gt {
 	using PACKET = sf::Packet;
 
 	// ImGui
-	using IM_VEC_2 = ImVec2;
-	using IM_VEC_4 = ImVec4;
+	using IM_VEC2 = ImVec2;
+	using IM_VEC4 = ImVec4;
 
 	// SFML
 	using VECTOR_2F = sf::Vector2f;
