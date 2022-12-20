@@ -1,45 +1,4 @@
-#include "GameSystem.hpp"
-
-void logging::print(LogLevel level, gt::UINT cnt, ...) {
-	const source_location loc = source_location::current();
-	const HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	va_list args;
-	va_start(args, cnt);
-	gt::STRING str = "";
-	for (int i = 0; i < cnt; i++) {
-		const char* var = va_arg(args, const char*);
-		str.append(var);
-	}
-	va_end(args);
-
-	switch (level) {
-		case logging::LogLevel::INFO:
-			BOOST_LOG_TRIVIAL(info) << loc.file_name() << "::"
-				<< loc.function_name() << "::("
-				<< loc.line() << ":" << loc.column() << "): "
-				<< str;
-			break;
-		case logging::LogLevel::WARN:
-			SetConsoleTextAttribute(console, FOREGROUND_RED | FOREGROUND_GREEN);
-			BOOST_LOG_TRIVIAL(warning) << loc.file_name() << "::"
-				<< loc.function_name() << "::("
-				<< loc.line() << ":" << loc.column() << "): "
-				<< str;
-			SetConsoleTextAttribute(console, 7);
-			break;
-		case logging::LogLevel::ERR:
-			SetConsoleTextAttribute(console, 12);
-			BOOST_LOG_TRIVIAL(error) << loc.file_name() << "::"
-				<< loc.function_name() << "::("
-				<< loc.line() << ":" << loc.column() << "): "
-				<< str;
-			SetConsoleTextAttribute(console, 7);
-			break;
-		default:
-			throw new exception("Unahndled log level type.");
-	};
-}
+﻿#include "GameSystem.hpp"
 
 void logging::info(gt::UINT cnt, ...) {
 	const source_location loc = source_location::current();
@@ -54,7 +13,8 @@ void logging::info(gt::UINT cnt, ...) {
 	}
 	va_end(args);
 
-	BOOST_LOG_TRIVIAL(info) << loc.file_name() << "::"
+	vector<gt::STRING> temp = gt::STRING(loc.file_name()).split("\\");
+	BOOST_LOG_TRIVIAL(info) << temp[temp.size() - 1] << "::"
 		<< loc.function_name() << "::("
 		<< loc.line() << ":" << loc.column() << "): "
 		<< str;
@@ -73,8 +33,9 @@ void logging::err(gt::UINT cnt, ...) {
 	}
 	va_end(args);
 
+	vector<gt::STRING> temp = gt::STRING(loc.file_name()).split("\\");
 	SetConsoleTextAttribute(console, 12);
-	BOOST_LOG_TRIVIAL(error) << loc.file_name() << "::"
+	BOOST_LOG_TRIVIAL(error) << temp[temp.size() - 1] << "::"
 		<< loc.function_name() << "::("
 		<< loc.line() << ":" << loc.column() << "): "
 		<< str;
@@ -94,12 +55,50 @@ void logging::warn(gt::UINT cnt, ...) {
 	}
 	va_end(args);
 
+	vector<gt::STRING> temp = gt::STRING(loc.file_name()).split("\\");
 	SetConsoleTextAttribute(console, FOREGROUND_RED | FOREGROUND_GREEN);
-	BOOST_LOG_TRIVIAL(error) << loc.file_name() << "::"
+	BOOST_LOG_TRIVIAL(warning) << temp[temp.size() - 1] << "::"
 		<< loc.function_name() << "::("
 		<< loc.line() << ":" << loc.column() << "): "
 		<< str;
 	SetConsoleTextAttribute(console, 7);
+}
+
+void logging::debg(gt::UINT cnt, ...) {
+	const source_location loc = source_location::current();
+	const HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	va_list args;
+	va_start(args, cnt);
+	gt::STRING str = "";
+	for (int i = 0; i < cnt; i++) {
+		const char* var = va_arg(args, const char*);
+		str.append(var);
+	}
+	va_end(args);
+
+	vector<gt::STRING> temp = gt::STRING(loc.file_name()).split("\\");
+	SetConsoleTextAttribute(console, 2);
+	BOOST_LOG_TRIVIAL(debug) << temp[temp.size() - 1] << "::"
+		<< loc.function_name() << "::("
+		<< loc.line() << ":" << loc.column() << "): "
+		<< str;
+	SetConsoleTextAttribute(console, 7);
+}
+
+void logging::title(gt::CSTRING name) {
+	const HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(console, 13);
+	cout << setw(25) << cout.fill(':') << name << "::>" << endl;
+	SetConsoleTextAttribute(console, 7);
+}
+
+void logging::InitializeLogging() {
+	logging::title("Initialize logging");
+	logging::info(1, " > test info msg");
+	logging::warn(1, " > test warning msg");
+	logging::err(1, " > test error msg");
+	logging::debg(1, " > test debug msg");
 }
 
 vector<gt::STRING> gt::STRING::split(STRING delim) {

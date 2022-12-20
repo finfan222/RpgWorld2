@@ -2,14 +2,12 @@
 
 int main()
 {
-    conf::RESOLUTION = conf::Resolution::_1024;
-    sf::RenderWindow window(sf::VideoMode(GetResWidth(), GetResHeight()), "SFML works!");
+    conf::InitializeGraphics();
+    logging::InitializeLogging();
+
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!", wnd::style::Resize);
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
-
-    logging::warn(1, "test warning debug");
-    logging::info(1, "test info debug");
-    logging::err(1, "test error debug");
 
     while (window.isOpen()) {
         sf::Event event;

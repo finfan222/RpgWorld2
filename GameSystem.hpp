@@ -10,6 +10,7 @@
 
 // System imports
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <filesystem>
 #include <string>
@@ -69,7 +70,6 @@ namespace gt {
 	using CHAR = char;
 	using BYTE = std::byte;
 	using BOOL = bool;
-	using CBOOL = bool*;
 
 	// Network
 	using PACKET = sf::Packet;
@@ -137,16 +137,21 @@ namespace logging {
 	enum class LogLevel {
 		INFO,
 		WARN,
-		ERR
+		ERR,
+		DEBUG
 	};
-	/*Принтует текст с нужным уровнем логирования*/
-	void print(LogLevel level = LogLevel::INFO, gt::UINT cnt = 0, ...);
 	/*Принтует текст с INFO логированием*/
 	void info(gt::UINT cnt = 0, ...);
 	/*Принтует текст с ERROR логированием*/
 	void err(gt::UINT cnt = 0, ...);
 	/*Принтует текст с WARN логированием*/
 	void warn(gt::UINT cnt = 0, ...);
+	/*Принтует текст с DEBUG логированием*/
+	void debg(gt::UINT cnt = 0, ...);
+	/*Принтует тайтл разделяющий, с оформлением*/
+	void title(gt::CSTRING name);
+	/*Инициализирует логирование с тестовыми сообщениями/оповещениями о том что логирование работает*/
+	void InitializeLogging();
 }
 
 /////////////////////// UI optimize works
@@ -157,7 +162,7 @@ namespace ui {
 	gt::BOOL button(gt::CSTRING title, ImVec2& size);
 
 	/////////////////////// ImGui WINDOW FLAG
-	namespace wnd {
+	namespace style {
 		constexpr gt::UINT None = ImGuiWindowFlags_None;
 		/*Отключает скроллбары сам UI (но прокрутка мышью или програмным путём до сих пор возможна)*/
 		constexpr gt::UINT Unscroll = ImGuiWindowFlags_NoScrollbar;
@@ -325,21 +330,24 @@ namespace ui {
 		constexpr sf::Keyboard::Key M = sf::Keyboard::Key::M;
 	}
 
-	namespace window {
+}
+
+/////////////////////// SFML
+namespace wnd {
+	namespace style {
 		/*No border / title bar (this flag and all others are mutually exclusive)*/
 		constexpr gt::UINT None = sf::Style::None;
 		/*Title bar + fixed border*/
-		constexpr gt::UINT Titlebar = 1 << 0;
+		constexpr gt::UINT Titlebar = sf::Style::Titlebar;
 		/*Title bar + resizable border + maximize button*/
-		constexpr gt::UINT Resize = 1 << 1;
+		constexpr gt::UINT Resize = sf::Style::Resize;
 		/*Title bar + close button*/
-		constexpr gt::UINT Close = 1 << 2;
+		constexpr gt::UINT Close = sf::Style::Close;
 		/*Fullscreen mode (this flag and all others are mutually exclusive)*/
-		constexpr gt::UINT Fullscreen = 1 << 3;
+		constexpr gt::UINT Fullscreen = sf::Style::Fullscreen;
 		/*Default window style represents from: Titlebar | Resize | Close*/
-		constexpr gt::UINT Default = Titlebar | Resize | Close;
+		constexpr gt::UINT Default = sf::Style::Titlebar | sf::Style::Resize | sf::Style::Close;
 	}
-
 }
 
 /////////////////////// CLIENT SETTINGS
@@ -347,14 +355,21 @@ namespace conf {
 	//////////////////////////
 	/// GRAPHIC
 	//////////////////////////
-	enum class Resolution {
-		_640,
-		_800,
-		_1024,
-		_1600,
-		_1900
-	};
-	static Resolution RESOLUTION = Resolution::_800;
+	static vector<gt::GAME_VIDEO_MODE> RESOLUTIONS;
+	static vector<gt::STRING> RESOLUTION_LIST;
+
+	/*Создаёт лист разрешений для текущей gpu пользователя*/
+	inline const static void InitializeGraphics() noexcept {
+		logging::title("Graphics initialize settings");
+		for (gt::GAME_VIDEO_MODE next : gt::GAME_VIDEO_MODE::getFullscreenModes()) {
+			RESOLUTIONS.push_back(next);
+
+			gt::STRING resolutionName = "";
+			resolutionName.append(to_string(next.width)).append("x").append(to_string(next.height));
+			RESOLUTION_LIST.push_back(resolutionName);
+			logging::info(2, resolutionName, " was added to resolutions.");
+		}
+	}
 	
 	//////////////////////////
 	/// AUDIO
@@ -378,11 +393,4 @@ template <typename E> inline constexpr auto Cast(E e) noexcept {
 	return static_cast<std::underlying_type_t<E>>(e);
 }
 
-inline static const gt::UINT GetResWidth() noexcept {
-	return consts::RESOULTION[Cast(conf::RESOLUTION)][0];
-}
-
-inline static const gt::UINT GetResHeight() noexcept {
-	return consts::RESOULTION[Cast(conf::RESOLUTION)][1];
-}
 #endif
