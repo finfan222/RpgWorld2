@@ -72,10 +72,6 @@ namespace gt {
 	using CBOOL = bool*;
 
 	// Network
-	using BUFFER1024 = BYTE[1024];
-	using BUFFER2048 = BYTE[1024 * 2];
-	using BUFFER4096 = BYTE[1024 * 4];
-	using BUFFER8192 = BYTE[1024 * 8];
 	using PACKET = sf::Packet;
 
 	// ImGui
