@@ -329,7 +329,7 @@ namespace ui {
 		constexpr sf::Keyboard::Key M = sf::Keyboard::Key::M;
 	}
 
-	namespace scene {
+	namespace window {
 		/*No border / title bar (this flag and all others are mutually exclusive)*/
 		constexpr gt::UINT None = sf::Style::None;
 		/*Title bar + fixed border*/
